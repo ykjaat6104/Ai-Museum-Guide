@@ -417,7 +417,7 @@ This project is for educational and research purposes. All historical content so
 ## 📞 Support
 
 For issues, questions, or contributions:
-- GitHub: [Ai-Museum-Guide](https://github.com/ykjaat6104/Ai-Museum-Guide)
+- GitHub: [PastPortals - AI](https://github.com/ykjaat6104/PastPortals-AI)
 - Report bugs via GitHub Issues
 - Check `SERVER_GUIDE.md` for detailed server documentation
 

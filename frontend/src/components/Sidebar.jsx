@@ -4,7 +4,7 @@ import { Home, Search, Clock, Building2, Settings } from 'lucide-react';
 import { useAPI } from '../contexts/APIContext';
 
 const Sidebar = ({ onSettingsClick }) => {
-  const { isConfigured, language } = useAPI();
+  const { language } = useAPI();
 
   const getLanguageFlag = (code) => {
     const flags = {
@@ -51,13 +51,6 @@ const Sidebar = ({ onSettingsClick }) => {
       </nav>
 
       <div className="sidebar-footer">
-        <div className={`api-status ${isConfigured ? 'configured' : 'not-configured'}`}>
-          <div className="status-dot"></div>
-          <span className="status-text">
-            {isConfigured ? '✓ AI Ready' : '✗ No API'}
-          </span>
-        </div>
-
         <button 
           className="sidebar-settings-btn"
           onClick={onSettingsClick}

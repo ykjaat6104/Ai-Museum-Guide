@@ -2,7 +2,6 @@
 
 **PastPortals** is an intelligent historical exploration AI-Powered Multimodal RAG-Based platform that brings world history to life through conversations, real historical images, and interactive museum guides. Built with React and powered by Google Gemini AI, it provides an immersive journey through time and civilizations.
 
----
 
 <img width="1920" height="1080" alt="Screenshot (71)" src="https://github.com/user-attachments/assets/69c94a9e-a70c-4bef-bc8a-b66dbd33cb70" />
 

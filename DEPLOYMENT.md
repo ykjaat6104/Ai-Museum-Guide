@@ -33,7 +33,7 @@ Your repo is already prepared with:
 
 6. **Add Environment Variables:**
    ```
-   GEMINI_API_KEY=AIzaSyDOZN_xtnLor5dZD5zn_jIs48GTjxZcvVo
+   GEMINI_API_KEY=your-gemini-api-key-here
    FLASK_ENV=production
    SECRET_KEY=your-production-secret-key-here
    CORS_ORIGINS=https://your-frontend-url.vercel.app

@@ -9,6 +9,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import os
 import nest_asyncio
+from config import get_config
 
 # Configure environment
 os.environ['HF_HUB_DISABLE_SYMLINKS_WARNING'] = '1'
@@ -60,7 +61,8 @@ def create_app():
         config_set_vector_db(None, None)
     else:
         # Only load heavy modules in development
-        from utils import load_vector_db, get_embeddings_model
+        from utils.vector_utils import load_vector_db
+        from utils.ai_utils import get_embeddings_model
         
         embeddings_model = get_embeddings_model(config.EMBEDDING_MODEL)
         embeddings_status = "Loaded" if embeddings_model else "Failed"
@@ -81,7 +83,7 @@ def create_app():
         config_set_vector_db(vector_index, text_map)
     
     # Configure AI if API key is available
-    from utils import setup_gemini
+    from utils.ai_utils import setup_gemini
     gemini_key = config.GEMINI_API_KEY
     if gemini_key:
         ai_configured = setup_gemini(gemini_key)

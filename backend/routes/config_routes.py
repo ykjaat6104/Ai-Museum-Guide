@@ -1,5 +1,5 @@
 """
-"""Configuration and health check routes
+Configuration and health check routes
 """
 from flask import Blueprint, request, jsonify
 from datetime import datetime
@@ -37,7 +37,7 @@ def health():
             "version": "2.0.0"
         }
     """
-    from utils import is_gemini_configured, get_embeddings_model
+    from utils.ai_utils import is_gemini_configured, get_embeddings_model
     
     vector_db_exists = vector_index is not None and text_map is not None
     vector_count = vector_index.ntotal if vector_db_exists else 0
@@ -74,7 +74,7 @@ def configure_api():
             "ai_enabled": true
         }
     """
-    from utils import setup_gemini
+    from utils.ai_utils import setup_gemini
     
     try:
         data = request.get_json()
@@ -111,7 +111,8 @@ def get_status():
     Returns:
         Comprehensive system status information
     """
-    from utils import get_vector_db_stats, get_embeddings_model, is_gemini_configured
+    from utils.vector_utils import get_vector_db_stats
+    from utils.ai_utils import get_embeddings_model, is_gemini_configured
     
     try:
         vector_stats = get_vector_db_stats(vector_index, text_map) if vector_index else {
@@ -159,7 +160,7 @@ def get_capabilities():
     Returns:
         List of features supported by the API
     """
-    from utils import is_gemini_configured
+    from utils.ai_utils import is_gemini_configured
     
     capabilities = {
         'core_features': {

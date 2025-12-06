@@ -34,11 +34,11 @@ async def get_ai_response(question):
         dict: Response with answer, source, and metadata
     """
     # Import only when function is called
-    from utils import (
-        is_historical_question, generate_history_prompt,
-        search_vector_db, search_and_summarize,
-        search_multiple_museums, is_gemini_configured, generate_content
-    )
+    from utils.history_utils import is_historical_question, generate_history_prompt
+    from utils.vector_utils import search_vector_db
+    from utils.wikipedia_utils import search_and_summarize
+    from utils.museum_utils import search_multiple_museums
+    from utils.ai_utils import is_gemini_configured, generate_content
     
     # Check if question is historical
     if not is_historical_question(question):

@@ -1,5 +1,5 @@
 """
-"""Summarization routes
+Summarization routes
 """
 from flask import Blueprint, request, jsonify
 from datetime import datetime
@@ -26,6 +26,8 @@ def summarize_text():
             "timestamp": "..."
         }
     """
+    from utils.ai_utils import is_gemini_configured, generate_content
+    
     try:
         data = request.get_json()
         text = data.get('text', '').strip()
@@ -111,6 +113,8 @@ def extract_key_points():
             "timestamp": "..."
         }
     """
+    from utils.ai_utils import is_gemini_configured, generate_content
+    
     try:
         data = request.get_json()
         text = data.get('text', '').strip()

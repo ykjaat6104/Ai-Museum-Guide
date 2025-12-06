@@ -34,11 +34,11 @@ def get_embeddings_model(model_name="sentence-transformers/all-mpnet-base-v2"):
                 'show_progress_bar': False
             }
         )
-        print(f"✅ Embeddings model loaded successfully")
+        print(f" Embeddings model loaded successfully")
         return model
     except Exception as e:
-        print(f"⚠️ Embeddings model warning: {str(e)}")
-        print("📝 Note: App will still work using online sources")
+        print(f" Embeddings model warning: {str(e)}")
+        print(" Note: App will still work using online sources")
         return None
 
 def setup_gemini(api_key, models_to_try=None):
@@ -68,7 +68,7 @@ def setup_gemini(api_key, models_to_try=None):
         # Try to get available models and find text generation models
         try:
             available_models = list(genai.list_models())
-            print(f"✅ Found {len(available_models)} available Gemini models")
+            print(f" Found {len(available_models)} available Gemini models")
             
             # Filter for models that support generateContent
             text_models = [
@@ -79,18 +79,18 @@ def setup_gemini(api_key, models_to_try=None):
             if text_models:
                 # Use the first available text generation model
                 model_name = text_models[0].name
-                print(f"🔄 Trying model: {model_name}")
+                print(f" Trying model: {model_name}")
                 
                 model = genai.GenerativeModel(model_name)
                 test_response = model.generate_content("Hello")
                 
                 if test_response and test_response.text:
-                    print(f"✅ Successfully configured Gemini model: {model_name}")
+                    print(f" Successfully configured Gemini model: {model_name}")
                     gemini_model = model
                     api_key_configured = True
                     return True
         except Exception as e:
-            print(f"⚠️  Model detection failed: {str(e)}, trying fallback...")
+            print(f" Model detection failed: {str(e)}, trying fallback...")
         
         # Fallback: Try predefined models
         for model_name in models_to_try:
@@ -100,19 +100,19 @@ def setup_gemini(api_key, models_to_try=None):
                 test_response = model.generate_content("Hello")
                 
                 if test_response and test_response.text:
-                    print(f"✅ Successfully configured Gemini model: {model_name}")
+                    print(f" Successfully configured Gemini model: {model_name}")
                     gemini_model = model
                     api_key_configured = True
                     return True
             except Exception as e:
-                print(f"   ❌ {model_name} failed: {str(e)}")
+                print(f"{model_name} failed: {str(e)}")
                 continue
         
-        print("❌ No compatible Gemini models found")
+        print("No compatible Gemini models found")
         return False
         
     except Exception as e:
-        print(f"❌ Gemini API Configuration Error: {str(e)}")
+        print(f"Gemini API Configuration Error: {str(e)}")
         return False
 
 def get_gemini_model():
@@ -158,7 +158,7 @@ def generate_content(prompt, temperature=0.7, max_tokens=2048):
         return None
         
     except Exception as e:
-        print(f"❌ Gemini generation error: {str(e)}")
+        print(f"Gemini generation error: {str(e)}")
         return None
 
 def generate_with_vision(prompt, image_data=None):
@@ -188,5 +188,5 @@ def generate_with_vision(prompt, image_data=None):
         return None
         
     except Exception as e:
-        print(f"❌ Gemini vision error: {str(e)}")
+        print(f"Gemini vision error: {str(e)}")
         return None

@@ -64,7 +64,7 @@ def search_museums():
         })
         
     except Exception as e:
-        print(f"❌ Museum search error: {str(e)}")
+        print(f"Museum search error: {str(e)}")
         return jsonify({'error': f'Museum search failed: {str(e)}'}), 500
 
 @museum_bp.route('/artifact/<artifact_id>', methods=['GET'])
@@ -92,7 +92,7 @@ def get_artifact(artifact_id):
         })
         
     except Exception as e:
-        print(f"❌ Artifact retrieval error: {str(e)}")
+        print(f" Artifact retrieval error: {str(e)}")
         return jsonify({'error': f'Failed to retrieve artifact: {str(e)}'}), 500
 
 @museum_bp.route('/collections', methods=['GET'])

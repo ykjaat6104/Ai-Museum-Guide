@@ -145,7 +145,7 @@ def get_status():
         })
         
     except Exception as e:
-        print(f"❌ Status check error: {str(e)}")
+        print(f"Status check error: {str(e)}")
         return jsonify({'error': f'Failed to retrieve status: {str(e)}'}), 500
 
 @config_bp.route('/capabilities', methods=['GET'])

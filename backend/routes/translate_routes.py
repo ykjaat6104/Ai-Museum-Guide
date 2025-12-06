@@ -113,7 +113,7 @@ def translate_text():
         })
         
     except Exception as e:
-        print(f"❌ Translation error: {str(e)}")
+        print(f" Translation error: {str(e)}")
         return jsonify({'error': f'Translation failed: {str(e)}'}), 500
 
 @translate_bp.route('/languages', methods=['GET'])
@@ -185,5 +185,5 @@ def detect_language():
         return jsonify({'error': 'Failed to detect language'}), 500
         
     except Exception as e:
-        print(f"❌ Language detection error: {str(e)}")
+        print(f" Language detection error: {str(e)}")
         return jsonify({'error': f'Detection failed: {str(e)}'}), 500

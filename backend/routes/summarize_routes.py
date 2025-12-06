@@ -91,7 +91,7 @@ def summarize_text():
         })
         
     except Exception as e:
-        print(f"❌ Summarization error: {str(e)}")
+        print(f" Summarization error: {str(e)}")
         return jsonify({'error': f'Summarization failed: {str(e)}'}), 500
 
 @summarize_bp.route('/key-points', methods=['POST'])
@@ -160,5 +160,5 @@ def extract_key_points():
         })
         
     except Exception as e:
-        print(f"❌ Key point extraction error: {str(e)}")
+        print(f" Key point extraction error: {str(e)}")
         return jsonify({'error': f'Extraction failed: {str(e)}'}), 500

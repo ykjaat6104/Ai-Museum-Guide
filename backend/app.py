@@ -5,50 +5,21 @@ Version 2.0.0
 A comprehensive Flask API for worldwide historical and museum exploration
 with Gemini AI integration, Wikipedia data, and museum collection access.
 """
-from flask import Flask
-from flask_cors import CORS
-import os
-import nest_asyncio
-from config import get_config
-from utils import load_vector_db, setup_gemini, get_embeddings_model
-from routes import (
-    qa_bp, translate_bp, summarize_bp, museum_bp, config_bp,
-    qa_set_vector_db, qa_set_museum_key,
-    museum_set_api_key, config_set_vector_db
-)
-
-# Configure environment
-os.environ['HF_HUB_DISABLE_SYMLINKS_WARNING'] = '1'
-os.environ['HF_HUB_DOWNLOAD_TIMEOUT'] = '600'
-nest_asyncio.apply()
-
-"""
-AI Museum Guide - Consolidated Backend API
-Version 2.0.0
-
-A comprehensive Flask API for worldwide historical and museum exploration
-with Gemini AI integration, Wikipedia data, and museum collection access.
-"""
 from flask import Flask, jsonify
 from flask_cors import CORS
 import os
 import nest_asyncio
-from config import get_config
-from utils import load_vector_db, setup_gemini, get_embeddings_model
-from routes import (
-    qa_bp, translate_bp, summarize_bp, museum_bp, config_bp,
-    qa_set_vector_db, qa_set_museum_key,
-    museum_set_api_key, config_set_vector_db
-)
 
 # Configure environment
 os.environ['HF_HUB_DISABLE_SYMLINKS_WARNING'] = '1'
 os.environ['HF_HUB_DOWNLOAD_TIMEOUT'] = '600'
+os.environ['TOKENIZERS_PARALLELISM'] = 'false'  # Reduce memory usage
 nest_asyncio.apply()
 
 def create_app():
     """Application factory pattern"""
-    # Get configuration
+    # Import config here to avoid loading heavy modules
+    from config import get_config
     config = get_config()
     
     # Initialize Flask app
@@ -68,25 +39,33 @@ def create_app():
     os.makedirs(config.DATA_DIR, exist_ok=True)
     os.makedirs(config.GENERATED_IMAGES_DIR, exist_ok=True)
     
-    # Load vector database
     print("\n" + "="*60)
-    print("🏛️  AI MUSEUM GUIDE - Backend Server")
+    print("🏛️  PASTPORTALS - Backend Server")
     print("="*60)
-    print("\n📊 System Initialization...")
+    print(f"\n📊 Environment: {config.FLASK_ENV}")
+    
+    # Import routes only when needed
+    from routes import (
+        qa_bp, translate_bp, summarize_bp, museum_bp, config_bp,
+        qa_set_vector_db, qa_set_museum_key,
+        museum_set_api_key, config_set_vector_db
+    )
     
     # Skip heavy models in production to save memory
     if config.FLASK_ENV == 'production':
-        print("   Embeddings Model: ⚠️  Skipped (production mode - saves memory)")
-        print("   Vector Database: ⚠️  Skipped (will use online sources only)")
+        print("   Mode: Production (lightweight)")
+        print("   AI Models: Using Gemini API only")
+        print("   Vector DB: Disabled (uses Wikipedia API)")
         qa_set_vector_db(None, None)
         config_set_vector_db(None, None)
     else:
-        # Check embeddings model (dev only)
+        # Only load heavy modules in development
+        from utils import load_vector_db, get_embeddings_model
+        
         embeddings_model = get_embeddings_model(config.EMBEDDING_MODEL)
         embeddings_status = "✅ Loaded" if embeddings_model else "❌ Failed"
         print(f"   Embeddings Model: {embeddings_status}")
         
-        # Load vector database
         vector_index, text_map = load_vector_db(
             config.FAISS_INDEX_FILE,
             config.TEXT_MAP_FILE
@@ -98,11 +77,11 @@ def create_app():
             vector_status = "⚠️  Empty (will use online sources)"
         print(f"   Vector Database: {vector_status}")
         
-        # Set vector DB for blueprints that need it
         qa_set_vector_db(vector_index, text_map)
         config_set_vector_db(vector_index, text_map)
     
     # Configure AI if API key is available
+    from utils import setup_gemini
     gemini_key = config.GEMINI_API_KEY
     if gemini_key:
         ai_configured = setup_gemini(gemini_key)
@@ -121,6 +100,7 @@ def create_app():
     print(f"   Museum APIs: {museum_status}")
     
     print(f"   Wikipedia API: ✅ Ready")
+    print("="*60 + "\n")
     
     # Register blueprints
     app.register_blueprint(config_bp, url_prefix='/api')
@@ -133,7 +113,7 @@ def create_app():
     @app.route('/')
     def index():
         return jsonify({
-            'name': 'AI Museum Guide API',
+            'name': 'PastPortals API',
             'version': '2.0.0',
             'description': 'Worldwide historical and museum exploration powered by AI',
             'endpoints': {

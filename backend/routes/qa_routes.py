@@ -73,7 +73,7 @@ async def get_ai_response(question):
         if museum_results['total_count'] > 0:
             museum_data = museum_results
     except Exception as e:
-        print(f"⚠️  Museum search failed: {str(e)}")
+        print(f"Museum search failed: {str(e)}")
     
     # Try AI response if configured
     if is_gemini_configured():
@@ -96,7 +96,7 @@ async def get_ai_response(question):
                     'context_used': relevant_context is not None
                 }
         except Exception as e:
-            print(f"❌ AI response error: {str(e)}")
+            print(f" AI response error: {str(e)}")
     
     # Fallback to Wikipedia-based response
     fallback = generate_fallback_response(question, relevant_context, wikipedia_info)

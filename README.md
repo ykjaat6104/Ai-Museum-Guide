@@ -4,6 +4,9 @@
 
 ---
 
+<img width="1920" height="1080" alt="Screenshot (71)" src="https://github.com/user-attachments/assets/69c94a9e-a70c-4bef-bc8a-b66dbd33cb70" />
+
+
 ## ✨ Key Features
 
 ### 🤖 **AI-Powered Historical Guide**
@@ -53,7 +56,11 @@
 - Smooth animations and hover effects
 - Professional typography and spacing
 
----
+<img width="1920" height="1080" alt="Screenshot (72)" src="https://github.com/user-attachments/assets/92c0d878-a898-4ed6-a4a0-7c4b77fecc38" />
+
+
+<img width="1920" height="1080" alt="Screenshot (73)" src="https://github.com/user-attachments/assets/03514f7f-3242-40a6-9021-93511e2b9467" />
+
 
 ## 🎯 Use Cases
 
@@ -410,7 +417,7 @@ This project is for educational and research purposes. All historical content so
 ## 📞 Support
 
 For issues, questions, or contributions:
-- GitHub: [Ai-Museum-Guide](https://github.com/ykjaat6104/Ai-Museum-Guide)
+- GitHub: [PastPortals - AI](https://github.com/ykjaat6104/PastPortals-AI)
 - Report bugs via GitHub Issues
 - Check `SERVER_GUIDE.md` for detailed server documentation
 

@@ -55,3 +55,7 @@ temp/
 # Images and generated content
 generated_images/
 uploads/
+
+# Report materials (keep local)
+report_graphs/
+project_statistics.py

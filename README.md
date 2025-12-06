@@ -85,10 +85,10 @@
 ### **Backend Stack**
 - **Framework**: Flask (Python)
 - **AI Model**: Google Gemini 2.5 Flash
-- **RETRIEVAL-AUGMENTED GENERATION**: Langchain, RAG
+- **Retrieval-Augmented Generation**: Langchain, RAG
 - **APIs**: Wikipedia API, Wikimedia Commons API
 - **CORS**: Flask-CORS for cross-origin requests
-- **VECTOR DATABASE**: FAISS 
+- **Vector Database**: FAISS 
 
 ### **Project Structure**
 ```

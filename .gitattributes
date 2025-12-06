@@ -1,3 +1,0 @@
-* text=auto
-*.sh text eol=lf
-frontend/node_modules/.bin/* eol=lf

@@ -12,8 +12,6 @@ export const useAPI = () => {
 };
 
 export const APIProvider = ({ children }) => {
-  const [apiKey, setApiKey] = useState('');
-  const [isConfigured, setIsConfigured] = useState(true); // Backend handles API key
   const [isLoading, setIsLoading] = useState(false);
   const [language, setLanguage] = useState('en');
 
@@ -94,8 +92,6 @@ export const APIProvider = ({ children }) => {
   };
 
   const value = {
-    apiKey,
-    isConfigured,
     isLoading,
     language,
     changeLanguage,

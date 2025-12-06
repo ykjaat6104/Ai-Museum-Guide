@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import toast from 'react-hot-toast';
 
 const NotificationContext = createContext();
@@ -12,7 +12,6 @@ export const useNotification = () => {
 };
 
 export const NotificationProvider = ({ children }) => {
-  const [notifications, setNotifications] = useState([]);
 
   const showSuccess = (message) => {
     toast.success(message);
@@ -51,7 +50,6 @@ export const NotificationProvider = ({ children }) => {
   };
 
   const value = {
-    notifications,
     showSuccess,
     showError,
     showInfo,

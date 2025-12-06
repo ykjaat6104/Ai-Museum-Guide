@@ -5,10 +5,11 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load environment variables from root directory
+# Load environment variables from root directory (optional - for local dev)
 root_dir = Path(__file__).parent.parent
 env_path = root_dir / '.env'
-load_dotenv(dotenv_path=env_path)
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path)
 
 class Config:
     """Base configuration"""

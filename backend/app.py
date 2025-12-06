@@ -74,26 +74,33 @@ def create_app():
     print("="*60)
     print("\n📊 System Initialization...")
     
-    # Check embeddings model
-    embeddings_model = get_embeddings_model(config.EMBEDDING_MODEL)
-    embeddings_status = "✅ Loaded" if embeddings_model else "❌ Failed"
-    print(f"   Embeddings Model: {embeddings_status}")
-    
-    # Load vector database
-    vector_index, text_map = load_vector_db(
-        config.FAISS_INDEX_FILE,
-        config.TEXT_MAP_FILE
-    )
-    
-    if vector_index and text_map:
-        vector_status = f"✅ Loaded ({vector_index.ntotal} vectors)"
+    # Skip heavy models in production to save memory
+    if config.FLASK_ENV == 'production':
+        print("   Embeddings Model: ⚠️  Skipped (production mode - saves memory)")
+        print("   Vector Database: ⚠️  Skipped (will use online sources only)")
+        qa_set_vector_db(None, None)
+        config_set_vector_db(None, None)
     else:
-        vector_status = "⚠️  Empty (will use online sources)"
-    print(f"   Vector Database: {vector_status}")
-    
-    # Set vector DB for blueprints that need it
-    qa_set_vector_db(vector_index, text_map)
-    config_set_vector_db(vector_index, text_map)
+        # Check embeddings model (dev only)
+        embeddings_model = get_embeddings_model(config.EMBEDDING_MODEL)
+        embeddings_status = "✅ Loaded" if embeddings_model else "❌ Failed"
+        print(f"   Embeddings Model: {embeddings_status}")
+        
+        # Load vector database
+        vector_index, text_map = load_vector_db(
+            config.FAISS_INDEX_FILE,
+            config.TEXT_MAP_FILE
+        )
+        
+        if vector_index and text_map:
+            vector_status = f"✅ Loaded ({vector_index.ntotal} vectors)"
+        else:
+            vector_status = "⚠️  Empty (will use online sources)"
+        print(f"   Vector Database: {vector_status}")
+        
+        # Set vector DB for blueprints that need it
+        qa_set_vector_db(vector_index, text_map)
+        config_set_vector_db(vector_index, text_map)
     
     # Configure AI if API key is available
     gemini_key = config.GEMINI_API_KEY

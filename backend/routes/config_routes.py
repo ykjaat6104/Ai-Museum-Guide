@@ -37,10 +37,15 @@ def health():
             "version": "2.0.0"
         }
     """
-    from utils.ai_utils import is_gemini_configured, get_embeddings_model
+    from utils.ai_utils import is_gemini_configured
+    from config import get_config
     
+    cfg = get_config()
     vector_db_exists = vector_index is not None and text_map is not None
     vector_count = vector_index.ntotal if vector_db_exists else 0
+    
+    # In production, embeddings are disabled
+    embeddings_enabled = cfg.FLASK_ENV != 'production'
     
     return jsonify({
         'status': 'online',
@@ -49,7 +54,7 @@ def health():
         'services': {
             'gemini_ai': is_gemini_configured(),
             'wikipedia': True,
-            'embeddings': get_embeddings_model() is not None,
+            'embeddings': embeddings_enabled,
             'vector_db': vector_db_exists,
             'vector_count': vector_count,
             'museum_api': True

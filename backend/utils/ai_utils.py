@@ -3,7 +3,6 @@ Core AI utilities for Gemini integration and embeddings
 """
 import google.generativeai as genai
 from functools import lru_cache
-from langchain_huggingface import HuggingFaceEmbeddings
 import os
 
 # Configure warnings
@@ -18,6 +17,7 @@ api_key_configured = False
 def get_embeddings_model(model_name="sentence-transformers/all-mpnet-base-v2"):
     """Get cached embeddings model"""
     try:
+        from langchain_huggingface import HuggingFaceEmbeddings  # Lazy import
         import torch
         # Clear any cached tensors
         torch.cuda.empty_cache() if torch.cuda.is_available() else None

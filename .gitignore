@@ -48,6 +48,11 @@ Thumbs.db
 *.log
 logs/
 
+# Project report files (local only)
+ARCHITECTURE.md
+generate_diagrams.py
+diagrams/
+
 # Temporary files
 *.tmp
 temp/
